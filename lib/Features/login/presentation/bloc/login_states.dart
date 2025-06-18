@@ -1,7 +1,7 @@
 
 
-import '../../../../Core/Failures.dart';
-import '../../../signup/Domain/entities/signup_entity.dart';
+import '../../../../Core/utils/Failures.dart';
+import '../../Domain/entities/login_entity.dart';
 
 enum LoginRequestState {
   init,
@@ -12,7 +12,7 @@ enum LoginRequestState {
 
 class LoginState {
   final LoginRequestState loginRequestState;
-  final UserEntity? userModel;
+  final LoginEntity? userModel;
   final Failures? failures;
 
   LoginState({
@@ -23,7 +23,7 @@ class LoginState {
 
   LoginState copyWith({
     LoginRequestState? loginRequestState,
-    UserEntity? userModel,
+    LoginEntity? userModel,
     Failures? failures,
   }) {
     return LoginState(

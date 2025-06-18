@@ -1,4 +1,5 @@
 
+import 'package:auvnet_flutter_task/Core/supabase/supabase_manager.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'Core/MyBlocObserver.dart';
+import 'Core/utils/MyBlocObserver.dart';
 import 'Core/routes_manager/app_routes.dart';
 import 'Core/routes_manager/routes_generators.dart';
-import 'Core/utils/SharedPreferencesUtils.dart';
 import 'Features/Home/Data/data_sources/local dataSource/LocalDataSourceImpl.dart';
 import 'Features/Home/Data/data_sources/remoteDataSource/RestaurantRemoteDataSource.dart';
 import 'Features/Home/Data/repository/restaurant_RepositoryImpl.dart';
@@ -30,7 +30,6 @@ final supabase = Supabase.instance.client;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPreferenceUtils.init();
   Bloc.observer = MyBlocObserver();
   final prefs = await SharedPreferences.getInstance();
   final onboardingShown = prefs.getBool('onboarding_shown') ?? false;
@@ -54,7 +53,7 @@ class MyApp extends StatelessWidget {
           create: (context) => SignupBloc(
             SignUpUseCase(
               signUpRepositoryImpl(
-                signupRemoteDataSource(client: supabase),
+                signupRemoteDataSource(supabaseService: SupabaseService(client: supabase)),
               ),
             ),
           ),
@@ -63,11 +62,11 @@ class MyApp extends StatelessWidget {
           create: (context) => LoginBloc(
             LoginUseCase(
               LoginRepositoryImpl(
-                loginRemoteDataSource(client: supabase),
-              ),
+                loginRemoteDataSource(supabaseService:SupabaseService(client: supabase),
+    )
             ),
           ),
-        ),
+        ),),
         BlocProvider<RestaurantBloc>(
           create: (context) => RestaurantBloc(
             GetRestaurantsUseCase(
@@ -77,7 +76,7 @@ class MyApp extends StatelessWidget {
             ),
           )..add(LoadRestaurantsEvent()),
         ),
-      ],
+    ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         child: MaterialApp(

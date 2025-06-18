@@ -1,14 +1,14 @@
 
 import 'package:auvnet_flutter_task/Features/signup/presentation/bloc/signup_states.dart';
 
-import '../../../../Core/Failures.dart';
+import '../../../../Core/utils/Failures.dart';
 import '../../Domain/entities/signup_entity.dart';
 
 enum SignUpRequestState { init, loading, success, error }
 
 class SignupState {
   final SignUpRequestState signUpRequestState;
-  final UserEntity? signupModel;
+  final SignupEntity? signupModel;
   final Failures? failures;
 
   SignupState({
@@ -19,7 +19,7 @@ class SignupState {
 
   SignupState copyWith({
     SignUpRequestState? signUpRequestState,
-    UserEntity? signupModel,
+    SignupEntity? signupModel,
     Failures? failures,
   }) {
     return SignupState(

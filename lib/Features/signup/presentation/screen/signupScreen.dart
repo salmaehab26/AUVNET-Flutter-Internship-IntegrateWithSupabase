@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Core/utils/my_colors.dart';
-import '../../../../Core/validator.dart';
+import '../../../../Core/utils/validator.dart';
 import '../../../login/presentation/bloc/login_bloc.dart';
 import '../../../login/presentation/bloc/login_states.dart';
 import '../bloc/signup_bloc.dart';

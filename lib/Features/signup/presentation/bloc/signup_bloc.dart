@@ -3,7 +3,7 @@ import 'package:auvnet_flutter_task/Features/signup/presentation/bloc/signup_eve
 import 'package:auvnet_flutter_task/Features/signup/presentation/bloc/signup_states.dart';
 import 'package:bloc/bloc.dart';
 
-import '../../../../Core/Failures.dart';
+import '../../../../Core/utils/Failures.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final SignUpUseCase signUpUseCase;

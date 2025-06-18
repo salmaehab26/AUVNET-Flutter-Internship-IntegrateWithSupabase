@@ -9,8 +9,8 @@ class signUpRepositoryImpl implements signUpRepository {
   signUpRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<UserEntity> signUp(String email, String password) async {
+  Future<SignupEntity> signUp(String email, String password) async {
     final user = await remoteDataSource.signUp(email, password);
-    return UserEntity(id: user.id, email: user.email ?? '');
+    return SignupEntity(id: user.id, email: user.email ?? '');
   }
 }

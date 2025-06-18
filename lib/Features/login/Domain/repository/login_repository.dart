@@ -1,5 +1,5 @@
-import '../../../signup/Domain/entities/signup_entity.dart';
+import '../entities/login_entity.dart';
 
 abstract class loginRepository {
-  Future<UserEntity> login(String email, String password);
+  Future<LoginEntity> login(String email, String password);
 }

@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../Core/utils/SharedPreferencesUtils.dart';
 import '../../../../Core/utils/customTextFIeld.dart';
 import '../../../../Core/utils/my_colors.dart';
-import '../../../../Core/validator.dart';
+import '../../../../Core/utils/validator.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_events.dart';
 import '../bloc/login_states.dart';
@@ -34,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.loginRequestState == LoginRequestState.success) {
-            
+
             Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
           } else if (state.loginRequestState == LoginRequestState.error) {
             ScaffoldMessenger.of(context).showSnackBar(

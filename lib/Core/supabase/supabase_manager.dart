@@ -1,48 +1,36 @@
-// // import 'package:supabase_flutter/supabase_flutter.dart';
-// //
-// import 'package:supabase_flutter/supabase_flutter.dart';
-//
-// import '../../Features/Home/Data/model/RestaurantModel.dart';
-//
-// class SupabaseStorageService {
-//   bool isLoading = true;
-//   List<RestaurantModel> restaurants = [];
-//
-//   Future<void> loadRestaurants() async {
-//     try {
-//       final data = await Supabase.instance.client.from('restaurants').select();
-//       print("Data from Supabase: $data");
-//       restaurants =
-//           (data as List).map((item) => RestaurantModel.fromMap(item)).toList();
-//     } catch (e) {
-//       print("Error: $e");
-//     } finally {
-//       setState(() {
-//         isLoading = false;
-//       });
-//     }
-//   }
-//
-// //
-// //
-// // // Future<void> signUpUser(String email, String password) async {
-// // //   try {
-// // //     final AuthResponse response = await supabase.auth.signUp(
-// // //       email: email,
-// // //       password: password,
-// // //     );
-// // //
-// // //     final user = response.user;
-// // //     final session = response.session;
-// // //
-// // //     if (user != null) {
-// // //       print("✅ Sign up successful!");
-// // //     } else {
-// // //       print("⚠️ User is null. Check email confirmation settings.");
-// // //     }
-// // //   } on AuthException catch (error) {
-// // //     print("❌ Sign up failed: ${error.message}");
-// // //   } catch (e) {
-// // //     print("❌ Unknown error: $e");
-// // //   }
-// // // }
+// lib/Core/services/supabase_service.dart
+
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+class SupabaseService {
+  final SupabaseClient client;
+
+  SupabaseService({required this.client});
+
+   Future<User> signUp(String email, String password) async {
+    final response = await client.auth.signUp(email: email, password: password);
+
+    if (response.user == null) {
+      throw Exception('Signup failed');
+    }
+    return response.user!;
+  }
+
+  Future<User>  login(String email, String password) async {
+    final AuthResponse response = await client.auth.signInWithPassword(email: email, password: password);
+    final Session? session = response.session;
+    final User? user = response.user;
+    if (user == null) {
+      throw Exception(session?.accessToken ?? "Login failed");
+    }
+    return user;
+  }
+
+
+  Future<void> signOut() async {
+    await client.auth.signOut();
+  }
+
+
+
+}

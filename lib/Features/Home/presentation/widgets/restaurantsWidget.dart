@@ -33,13 +33,6 @@ class RestaurantsWidget extends StatelessWidget {
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
-            // Icon(CupertinoIcons.cart_badge_plus)
-            // imageurl
-        // CachedNetworkImage(
-
-            //   imageUrl: imageurl,
-            //   placeholder: (context, url) => CircularProgressIndicator(),
-            //   errorWidget: (context, url, error) => Icon(Icons.error),
 
     ),
           // ),

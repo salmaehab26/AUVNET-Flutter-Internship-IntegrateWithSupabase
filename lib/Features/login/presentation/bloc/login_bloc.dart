@@ -1,6 +1,6 @@
 import 'package:auvnet_flutter_task/Features/login/Domain/use_cases/login_useCase.dart';
 import 'package:bloc/bloc.dart';
-import '../../../../Core/Failures.dart';
+import '../../../../Core/utils/Failures.dart';
 import 'login_events.dart';
 import 'login_states.dart';
 

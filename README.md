@@ -2,15 +2,51 @@
 
 A new Flutter project.
 
-## Getting Started
+mobile application built with Flutter,using Supabase for authentication and remote data(Cloud Database and Cloud Storage), Hive for local caching, and BLoC for state management, following Clean Architecture principles.
+- User authentication (Sign up & Login) with Supabase
+- Caching restaurants data locally using Hive
+- Clean and responsive UI
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+-Project Structure (Clean Architecture)
+lib/
+├── Core/  (colors, routes, failures)
+├── Features/
+│ ├── login/
+│ │ ├── Data/ # Remote data source + Repository
+│ │ ├── Domain/ # Entities + UseCases
+│ │ └── presentation/ # BLoC + UI Screens
+│
+│ ├── Home/
+│ │ ├── Data/ # Remote (Supabase) + Local (Hive)
+│ │ ├── Domain/ # Entities + UseCases
+│ │ └── presentation/ # BLoC + UI Widgets
+│ │
+│ │── Onbaording/
+│ │
+│ │── SplashScreen/
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-Setup Instructions
+
+  Clone the repo:
+     git clone https://github.com/your-username/auvnet_flutter_task.git
+  
+-Supabase Setup
+  Make sure you have created a project on Supabase
+
+Add your url and anonKey to the Supabase.initialize method in main.dart
+
+-Dependencies
+
+cupertino_icons
+flutter_screenutil
+flutter_bloc
+bloc
+flutter_carousel_widget
+smooth_page_indicator
+supabase_flutter
+equatable
+cached_network_image
+shared_preferences
+hive_flutter

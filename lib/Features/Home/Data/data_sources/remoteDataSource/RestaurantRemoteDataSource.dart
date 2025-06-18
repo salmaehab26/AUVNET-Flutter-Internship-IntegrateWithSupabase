@@ -1,6 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../../Core/Failures.dart';
+import '../../../../../Core/utils/Failures.dart';
 import '../../../Domain/entities/restaurant_entity.dart';
 import '../../model/RestaurantModel.dart';
 

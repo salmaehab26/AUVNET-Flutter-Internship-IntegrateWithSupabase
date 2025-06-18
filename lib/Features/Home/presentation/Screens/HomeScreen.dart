@@ -10,7 +10,6 @@ import '../widgets/adSwiper.dart';
 import '../widgets/codewidget.dart';
 import '../widgets/restaurantsWidget.dart';
 import '../widgets/shortcutWidget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

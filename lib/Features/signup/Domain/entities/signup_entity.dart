@@ -1,7 +1,7 @@
-class UserEntity {
+class SignupEntity {
 
   final String id;
   final String email;
 
-  UserEntity({required this.id, required this.email});
+  SignupEntity({required this.id, required this.email});
 }

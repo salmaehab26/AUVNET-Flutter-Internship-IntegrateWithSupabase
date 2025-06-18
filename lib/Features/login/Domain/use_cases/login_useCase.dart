@@ -1,5 +1,5 @@
-import '../../../signup/Domain/entities/signup_entity.dart';
-import '../../../signup/Domain/repository/signup_repository.dart';
+
+import '../entities/login_entity.dart';
 import '../repository/login_repository.dart';
 
 class LoginUseCase {
@@ -7,7 +7,7 @@ class LoginUseCase {
 
   LoginUseCase(this.repository);
 
-  Future<UserEntity>  execute(String email, String password) {
+  Future<LoginEntity>  execute(String email, String password) {
     return repository.login(email, password);
   }
 }
