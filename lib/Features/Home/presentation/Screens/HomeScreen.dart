@@ -1,17 +1,49 @@
-
 import 'package:auvnet_flutter_task/Core/utils/my_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../Data/model/RestaurantModel.dart';
 import '../widgets/Services.dart';
 import '../widgets/adSwiper.dart';
 import '../widgets/codewidget.dart';
 import '../widgets/restaurantsWidget.dart';
 import '../widgets/shortcutWidget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<RestaurantModel> restaurants = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadRestaurants();
+  }
+
+  bool isLoading = true;
+  Future<void> loadRestaurants() async {
+    try {
+      final data = await Supabase.instance.client.from('restaurants').select();
+      print("Data from Supabase: $data");
+      restaurants =
+          (data as List).map((item) => RestaurantModel.fromJson(item)).toList();
+    } catch (e) {
+      print("Error: $e");
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +58,10 @@ class HomeScreen extends StatelessWidget {
           showSelectedLabels: true,
           showUnselectedLabels: true,
           selectedItemColor: ColorManager.primaryColor,
-          unselectedItemColor: Color(0xff667085),
+          unselectedItemColor: const Color(0xff667085),
           currentIndex: 0,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-
               icon: Icon(Icons.calendar_today_outlined),
               label: "Home",
             ),
@@ -63,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                     width: 375.w,
                     height: 156.h,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
                       ),
@@ -77,7 +108,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -85,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.only(left: 34.w),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text("Delivering to"),
                             Text("Al Satwa, 81A Street"),
                             Text("Hi hepa! "),
@@ -95,10 +125,10 @@ class HomeScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 60.h, right: 30.w),
                         child: ClipRRect(
-                          child: Image(
+                          child: Image.asset(
+                            "assets/images/profile.png",
                             height: 60.h,
                             width: 60.w,
-                            image: AssetImage("assets/images/profile.png"),
                           ),
                         ),
                       ),
@@ -107,7 +137,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 6),
+                padding: EdgeInsets.only(left: 16.0, top: 6),
                 child: Text(
                   "Services:",
                   style: TextStyle(
@@ -116,7 +146,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 156.h,
                 child: Padding(
                   padding: EdgeInsets.all(16),
@@ -142,7 +172,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              CodeWidget(),
+              const CodeWidget(),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, top: 15),
                 child: Text(
@@ -153,28 +183,38 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 106.h,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16, right: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ShortcutWidget(image: 'assets/icons/Pastorders.png',
-                        title: "Past\norders",),
-                      ShortcutWidget(image: "assets/icons/SuperSaver.png",
-                        title: "Super\nSaver",),
-                      ShortcutWidget(image: "assets/icons/Must-tries.png",
-                        title: "Must-tries",),
-                      ShortcutWidget(image: "assets/icons/Give Back.png",
-                        title: "Give Back",),
-                      ShortcutWidget(image: "assets/icons/BestSellers.png",
-                        title: "Best\nSellers",),
+                      ShortcutWidget(
+                        image: 'assets/icons/Pastorders.png',
+                        title: "Past\norders",
+                      ),
+                      ShortcutWidget(
+                        image: "assets/icons/SuperSaver.png",
+                        title: "Super\nSaver",
+                      ),
+                      ShortcutWidget(
+                        image: "assets/icons/Must-tries.png",
+                        title: "Must-tries",
+                      ),
+                      ShortcutWidget(
+                        image: "assets/icons/Give Back.png",
+                        title: "Give Back",
+                      ),
+                      ShortcutWidget(
+                        image: "assets/icons/BestSellers.png",
+                        title: "Best\nSellers",
+                      ),
                     ],
                   ),
                 ),
               ),
-              Center(child: Adswiper()),
+              const Center(child: Adswiper()),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, top: 15),
                 child: Text(
@@ -185,31 +225,25 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 120.h,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RestaurantsWidget(
-                        image: "assets/images/Allo Beirut .png",
-                        title: "Allo Beirut ",
-                        text: "32 mins",),
-                      RestaurantsWidget(
-                        image: "assets/images/Laffah.png",
-                        title: "Laffah ",
-                        text: "38 mins",),
-                      RestaurantsWidget(
-                        image: "assets/images/Falafil AlRabiah Al kha.png",
-                        title: "Falafil AlRabi... ",
-                        text: "44 mins",),
-                      RestaurantsWidget(
-                        image: "assets/images/Barbar.png",
-                        title: "Barbar ",
-                        text: "34 mins",)
-                    ],
-                  ),
+                child: restaurants.isEmpty
+                    ? Center(child: isLoading ? CircularProgressIndicator() : Text("No restaurants found."))
+                    : ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: restaurants.length,
+                  itemBuilder: (context, index) {
+                    final restaurant = restaurants[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: RestaurantsWidget(
+                        title: restaurant.name,
+                        text: restaurant.time,
+                        image: restaurant.image,
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

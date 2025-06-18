@@ -1,13 +1,16 @@
 import 'package:auvnet_flutter_task/Core/utils/app_styles.dart';
 import 'package:auvnet_flutter_task/Core/utils/my_colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RestaurantsWidget extends StatelessWidget {
-   RestaurantsWidget({super.key,  required this.image,
+   RestaurantsWidget({super.key, 
+     required this.image,
     required this.title,
     required this.text,});
-  String image;
+   String image;
   String title;
   String text;
 
@@ -24,8 +27,22 @@ class RestaurantsWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color:Color(0xffD9D9D9)),
             ),
-            child: Image(image: AssetImage(image)),
-          ),
+            child:CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+            // Icon(CupertinoIcons.cart_badge_plus)
+            // imageurl
+        // CachedNetworkImage(
+
+            //   imageUrl: imageurl,
+            //   placeholder: (context, url) => CircularProgressIndicator(),
+            //   errorWidget: (context, url, error) => Icon(Icons.error),
+
+    ),
+          // ),
           Text(title,style: AppStyles.blackmedium12Text,),
           Row(children: [Icon(CupertinoIcons.clock,size: 10,),Text(text,style: AppStyles.graymedium10text,)],)
 

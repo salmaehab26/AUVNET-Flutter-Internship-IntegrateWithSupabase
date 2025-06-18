@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../Core/routes_manager/app_routes.dart';
 import 'Home/presentation/Screens/HomeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,14 +11,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future<void> checkAuthStatus() async {
+    final session = Supabase.instance.client.auth.currentSession;
+
+    if (session != null) {
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
+      });
+    } else {
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
+      });
+    }
+  }
+
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => HomeScreen()),
-      );
-    });
+    checkAuthStatus();
   }
 
   @override

@@ -1,31 +1,35 @@
-// SignupState.dart
 
-import 'package:equatable/equatable.dart';
+import 'package:auvnet_flutter_task/Features/signup/presentation/bloc/signup_states.dart';
 
-abstract class SignupState extends Equatable {
-  const SignupState();
+import '../../../../Core/Failures.dart';
+import '../../Domain/entities/signup_entity.dart';
 
-  @override
-  List<Object?> get props => [];
+enum SignUpRequestState { init, loading, success, error }
+
+class SignupState {
+  final SignUpRequestState signUpRequestState;
+  final UserEntity? signupModel;
+  final Failures? failures;
+
+  SignupState({
+    this.signUpRequestState = SignUpRequestState.init,
+    this.signupModel,
+    this.failures,
+  });
+
+  SignupState copyWith({
+    SignUpRequestState? signUpRequestState,
+    UserEntity? signupModel,
+    Failures? failures,
+  }) {
+    return SignupState(
+      signUpRequestState: signUpRequestState ?? this.signUpRequestState,
+      signupModel: signupModel ?? this.signupModel,
+      failures: failures ?? this.failures,
+    );
+  }
 }
 
-class SignupInitial extends SignupState {}
-
-class SignupLoading extends SignupState {}
-
-class SignupSuccess extends SignupState {
-  final String email;
-
-  const SignupSuccess({required this.email});
-
-  @override
-  List<Object?> get props => [email];
-}
-class SignupFailure extends SignupState {
-  final String message;
-
-  const SignupFailure(this.message);
-
-  @override
-  List<Object?> get props => [message];
+final class SignupInitial extends SignupState {
+  SignupInitial() : super(signUpRequestState: SignUpRequestState.init);
 }
