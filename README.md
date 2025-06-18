@@ -8,25 +8,6 @@ mobile application built with Flutter, using Supabase for authentication and rem
 - Clean and responsive UI
 
 
--Project Structure (Clean Architecture)
-lib/
-├── Core/  (colors, routes, failures)
-├── Features/
-│ ├── login/
-│ │ ├── Data/ # Remote data source + Repository
-│ │ ├── Domain/ # Entities + UseCases
-│ │ └── presentation/ # BLoC + UI Screens
-│
-│ ├── Home/
-│ │ ├── Data/ # Remote (Supabase) + Local (Hive)
-│ │ ├── Domain/ # Entities + UseCases
-│ │ └── presentation/ # BLoC + UI Widgets
-│ │
-│ │── Onbaording/
-│ │
-│ │── SplashScreen/
-
-
 -Setup Instructions
 
   Clone the repo:
