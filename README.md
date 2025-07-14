@@ -2,7 +2,7 @@
 
 A new Flutter project.
 
-mobile application built with Flutter, using **Supabase** for authentication and remote data(Cloud Database and Cloud Storage), **Hive**for local caching, and **BLoC** for state management, following **Clean Architecture principles**.
+mobile application built with Flutter, using **Supabase** for authentication and remote data(Cloud Database and Cloud Storage), **Hive** for local caching, and **BLoC** for state management, following **Clean Architecture principles**.
 - User authentication (Sign up & Login) with Supabase
 - Caching restaurants' data locally using Hive
 - Clean and responsive UI
